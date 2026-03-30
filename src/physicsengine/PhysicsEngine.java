@@ -1,20 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package physicsengine;
 
-/**
- *
- * @author nook
- */
-public class PhysicsEngine {
+import physicsengine.ecs.*;
+import java.util.Set;
 
-    /**
-     * @param args the command line arguments
-     */
+public class PhysicsEngine {
     public static void main(String[] args) {
-        // TODO code application logic here
+        World world = new World();
+        
+        // Create two entities
+        int entityA = world.createEntity();
+        int entityB = world.createEntity();
+        
+        System.out.println("Entity A ID: " + entityA);
+        System.out.println("Entity B ID: " + entityB);
+        
+        // Add a test component
+        Component testComponent = new Component() {};
+        world.addComponent(entityA, testComponent);
+        world.addComponent(entityB, testComponent);
+        
+        // Query for all entities with that component
+        Set<Integer> results = world.query(testComponent.getClass());
+        System.out.println("Entities with test component: " + results);
+        
+        // Destroy entity A
+        world.destroyEntity(entityA);
+        results = world.query(testComponent.getClass());
+        System.out.println("After destroying A: " + results);
     }
-    
 }
