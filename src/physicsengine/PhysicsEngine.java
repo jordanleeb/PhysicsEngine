@@ -1,38 +1,36 @@
 package physicsengine;
 
-import physicsengine.ecs.*;
-import java.util.Set;
+import physicsengine.util.Vector2;
 
 public class PhysicsEngine {
     public static void main(String[] args) {
-        World world = new World();
-        EventBus eventBus = world.getEventBus();
+        Vector2 a = new Vector2(3, 4);
+        Vector2 b = new Vector2(1, 2);
         
-        // Create a simple test event
-        class TestEvent extends Event {
-            public final String message;
-            public TestEvent(String message) {
-                this.message = message;
-            }
-        }
+        // Test chaining
+        Vector2 chained = new Vector2(1, 1).add(b).scale(2.0f).negate();
+        System.out.println("Chained result: " + chained);
         
-        // Subscribe two listeners to the same event
-        eventBus.subscribe(TestEvent.class, event -> {
-            System.out.println("Listener 1 received: " + event.message);
-        });
+        // Test copy safety
+        Vector2 sum = a.copy().add(b);
+        System.out.println("a + b: " + sum);
+        System.out.println("a unchanged: " + a);
         
-        eventBus.subscribe(TestEvent.class, event -> {
-            System.out.println("Listener 2 received: " + event.message);
-        });
+        // Test magnitude vs magnitudeSquared
+        System.out.println("magnitude of a: " + a.magnitude());
+        System.out.println("magnitudeSquared of a: " + a.magnitudeSquared());
         
-        // Publish an event
-        System.out.println("Publishing event...");
-        eventBus.publish(new TestEvent("Hello from EventBus!"));
+        // Test dot and cross
+        System.out.println("a dot b: " + a.dot(b));
+        System.out.println("a cross b: " + a.cross(b));
         
-        // Test that unsubscribed events don't cause issues
-        class UnheardEvent extends Event {}
-        System.out.println("Publishing unheard event...");
-        eventBus.publish(new UnheardEvent());
-        System.out.println("If you're seeing this, unheard events were handled cleanly.");
+        // Test normalize
+        Vector2 norm = a.copy().normalize();
+        System.out.println("a normalized: " + norm);
+        System.out.println("normalized magnitude: " + norm.magnitude());
+        
+        // Test zero vector normalize safety
+        Vector2 zero = new Vector2(0, 0);
+        System.out.println("zero normalized: " + zero.normalize());
     }
 }
