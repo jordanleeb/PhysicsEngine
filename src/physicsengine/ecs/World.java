@@ -6,6 +6,7 @@ public class World {
     private int nextEntityId = 0;
     private final Map<Class<?>, Map<Integer, Component>> componentStores = new HashMap<>();
     private final List<ECSSystem> systems = new ArrayList<>();
+    private final EventBus eventBus = new EventBus();
     
     // Create a new entity, return its unique ID
     public int createEntity() {
@@ -61,5 +62,10 @@ public class World {
         for (ECSSystem system : systems) {
             system.update(deltaTime);
         }
+    }
+    
+    // Getter for eventBus
+    public EventBus getEventBus() {
+        return eventBus;
     }
 }
