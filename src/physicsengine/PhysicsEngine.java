@@ -6,26 +6,33 @@ import java.util.Set;
 public class PhysicsEngine {
     public static void main(String[] args) {
         World world = new World();
+        EventBus eventBus = world.getEventBus();
         
-        // Create two entities
-        int entityA = world.createEntity();
-        int entityB = world.createEntity();
+        // Create a simple test event
+        class TestEvent extends Event {
+            public final String message;
+            public TestEvent(String message) {
+                this.message = message;
+            }
+        }
         
-        System.out.println("Entity A ID: " + entityA);
-        System.out.println("Entity B ID: " + entityB);
+        // Subscribe two listeners to the same event
+        eventBus.subscribe(TestEvent.class, event -> {
+            System.out.println("Listener 1 received: " + event.message);
+        });
         
-        // Add a test component
-        Component testComponent = new Component() {};
-        world.addComponent(entityA, testComponent);
-        world.addComponent(entityB, testComponent);
+        eventBus.subscribe(TestEvent.class, event -> {
+            System.out.println("Listener 2 received: " + event.message);
+        });
         
-        // Query for all entities with that component
-        Set<Integer> results = world.query(testComponent.getClass());
-        System.out.println("Entities with test component: " + results);
+        // Publish an event
+        System.out.println("Publishing event...");
+        eventBus.publish(new TestEvent("Hello from EventBus!"));
         
-        // Destroy entity A
-        world.destroyEntity(entityA);
-        results = world.query(testComponent.getClass());
-        System.out.println("After destroying A: " + results);
+        // Test that unsubscribed events don't cause issues
+        class UnheardEvent extends Event {}
+        System.out.println("Publishing unheard event...");
+        eventBus.publish(new UnheardEvent());
+        System.out.println("If you're seeing this, unheard events were handled cleanly.");
     }
 }
