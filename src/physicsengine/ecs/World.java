@@ -15,9 +15,14 @@ public class World {
     
     // Add a component to an entity
     public <T extends Component> void addComponent(int entityId, T component) {
-        componentStores
-                .computeIfAbsent(component.getClass(), k -> new HashMap<>())
+        Class<?> current = component.getClass();
+        while (current != null && !current.equals(Component.class) 
+                && Component.class.isAssignableFrom(current)) {
+            componentStores
+                .computeIfAbsent(current, k -> new HashMap<>())
                 .put(entityId, component);
+            current = current.getSuperclass();
+        }
     }
     
     // Get a specific component type for an entity
