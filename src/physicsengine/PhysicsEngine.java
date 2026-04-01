@@ -3,6 +3,7 @@ package physicsengine;
 import physicsengine.components.*;
 import physicsengine.ecs.World;
 import physicsengine.systems.RenderSystem;
+import physicsengine.systems.PhysicsSystem;
 import physicsengine.util.Vector2;
 import java.awt.Color;
 import javax.swing.*;
@@ -41,6 +42,10 @@ public class PhysicsEngine {
             SimulationPanel panel = new SimulationPanel();
             RenderSystem renderSystem = new RenderSystem(world);
             panel.setRenderSystem(renderSystem);
+            
+            // Register systems with world
+            PhysicsSystem physicsSystem = new PhysicsSystem(world);
+            world.addSystem(physicsSystem);
 
             // Add panel to frame
             frame.add(panel);
