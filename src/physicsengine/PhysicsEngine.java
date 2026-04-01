@@ -9,6 +9,8 @@ import java.awt.Color;
 import javax.swing.*;
 
 public class PhysicsEngine {
+    private static final double PHYSICS_STEP = 1.0 / 60.0;
+    
     public static void main(String[] args) {
         // Create the world
         World world = new World();
@@ -53,9 +55,12 @@ public class PhysicsEngine {
             frame.setLocationRelativeTo(null); // center on screen
             frame.setVisible(true);
 
-            // Start game loop
-            GameLoop gameLoop = new GameLoop(world, panel);
-            gameLoop.start();
+            // Simple single threaded game loop via Swing Timer
+            javax.swing.Timer gameTimer = new javax.swing.Timer(16, e -> {
+                world.update(PHYSICS_STEP);
+                panel.repaint();
+            });
+            gameTimer.start();
         });
     }
 }
