@@ -32,16 +32,27 @@ public class World {
         return type.cast(store.get(entityId));
     }
     
-    // Query for all entities that have ALL of the given component types
-    public Set<Integer> query(Class<?>... componentTypes) {
+    // Query for all entities that have ALL of the required component types
+    public Set<Integer> query(Class<?>... required) {
         Set<Integer> result = null;
-        for (Class<?> type : componentTypes) {
+        for (Class<?> type : required) {
             Map<Integer, Component> store = componentStores.get(type);
             if (store == null) return new HashSet<>();
             if (result == null) result = new HashSet<>(store.keySet());
             else result.retainAll(store.keySet());
         }
         return result == null ? new HashSet<>() : result;
+    }
+
+    // Query for all entities that have ALL of the required component types
+    // And WITHOUT the excluded component types
+    public Set<Integer> query(Class<?>[] required, Class<?>... excluded) {
+        Set<Integer> result = query(required);
+        for (Class<?> type : excluded) {
+            Map<Integer, Component> store = componentStores.get(type);
+            if (store != null) result.removeAll(store.keySet());
+        }
+        return result;
     }
     
     // Remove a component from an entity

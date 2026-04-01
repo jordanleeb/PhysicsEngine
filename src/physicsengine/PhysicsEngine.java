@@ -18,15 +18,10 @@ public class PhysicsEngine {
         // Create some test entities
         int ball = world.createEntity();
         world.addComponent(ball, new TransformComponent(400, 300));
-        world.addComponent(ball, new DynamicComponent(1.0f));
+        world.addComponent(ball, new RigidBodyComponent(1.0f));
         world.addComponent(ball, new CollisionComponent(0.8f, 0.3f));
         world.addComponent(ball, new CircleComponent(25));
         world.addComponent(ball, new RenderableComponent(Color.BLUE, true));
-        
-        // Sync previous position with starting position
-        TransformComponent ballTransform = world.getComponent(ball, TransformComponent.class);
-        DynamicComponent ballDynamic = world.getComponent(ball, DynamicComponent.class);
-        ballDynamic.previousPosition.set(ballTransform.position.x, ballTransform.position.y);
 
         int wall = world.createEntity();
         world.addComponent(wall, new TransformComponent(400, 550));
@@ -46,7 +41,7 @@ public class PhysicsEngine {
             panel.setRenderSystem(renderSystem);
             
             // Register systems with world
-            PhysicsSystem physicsSystem = new PhysicsSystem(world);
+            PhysicsSystem physicsSystem = new PhysicsSystem(world, 800, 600);
             world.addSystem(physicsSystem);
 
             // Add panel to frame
