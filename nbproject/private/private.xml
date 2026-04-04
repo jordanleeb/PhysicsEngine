@@ -5,11 +5,14 @@
         <group>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/components/TransformComponent.java</file>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/components/RigidBodyComponent.java</file>
-            <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/systems/PhysicsSystem.java</file>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/systems/RenderSystem.java</file>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/PhysicsEngine.java</file>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/components/CollisionComponent.java</file>
             <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/ecs/World.java</file>
+            <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/util/AABB.java</file>
+            <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/util/Quadtree.java</file>
+            <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/systems/PhysicsSystem.java</file>
+            <file>file:/home/nook/NetBeansProjects/PhysicsEngine/src/physicsengine/util/Vector2.java</file>
         </group>
     </open-files>
 </project-private>

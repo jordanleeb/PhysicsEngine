@@ -19,13 +19,13 @@ public class PhysicsEngine {
         int ball = world.createEntity();
         world.addComponent(ball, new TransformComponent(400, 300));
         world.addComponent(ball, new RigidBodyComponent(1.0f));
-        world.addComponent(ball, new CollisionComponent(0.8f, 0.3f));
+        world.addComponent(ball, new CollisionComponent(1f, 0.3f));
         world.addComponent(ball, new CircleComponent(25));
         world.addComponent(ball, new RenderableComponent(Color.BLUE, true));
 
         int wall = world.createEntity();
         world.addComponent(wall, new TransformComponent(400, 550));
-        world.addComponent(wall, new CollisionComponent(0.2f, 0.8f));
+        world.addComponent(wall, new CollisionComponent(1f, 0.8f));
         world.addComponent(wall, new RectangleComponent(800, 20));
         world.addComponent(wall, new RenderableComponent(Color.GRAY, true));
 

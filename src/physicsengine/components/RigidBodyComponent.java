@@ -12,9 +12,11 @@ public class RigidBodyComponent extends Component {
     public Vector2 force;
     public float torque;
     
-    // Encapsulated mass
+    // Encapsulated mass and moment of inertia
     private float mass;
     private float inverseMass;
+    private float momentOfInertia;
+    private float inverseMomentOfInertia;
     
     public RigidBodyComponent(float mass) {
         this.velocity = new Vector2(0, 0);
@@ -22,6 +24,7 @@ public class RigidBodyComponent extends Component {
         this.force = new Vector2(0, 0);
         this.torque = 0;
         setMass(mass);
+        setMomentOfInertia(0);
     }
     
     public float getMass() { return mass; }
@@ -30,5 +33,13 @@ public class RigidBodyComponent extends Component {
     public void setMass(float mass) {
         this.mass = mass;
         this.inverseMass = mass > 0 ? 1.0f / mass : 0.0f;
+    }
+    
+    public float getMomentOfInertia() { return momentOfInertia; }
+    public float getInverseMomentOfInertia() { return inverseMomentOfInertia; }
+    
+    public void setMomentOfInertia(float momentOfInertia) {
+        this.momentOfInertia = momentOfInertia;
+        this.inverseMomentOfInertia = momentOfInertia > 0 ? 1.0f / momentOfInertia : 0.0f;
     }
 }
